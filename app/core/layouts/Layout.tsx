@@ -9,7 +9,7 @@ const Layout: BlitzLayout<{
   includeMainWrapper?: boolean
 }> = ({ title, includeMainWrapper = true, beforeMain, children }) => {
   const mainClasses = classNames({
-    "govuk-main-wrapper app-main-content govuk-width-container": includeMainWrapper,
+    "": includeMainWrapper,
   })
   return (
     <>

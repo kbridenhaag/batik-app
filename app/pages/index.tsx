@@ -4,6 +4,14 @@ import Layout from "app/core/layouts/Layout"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import logo from "public/logo.png"
+import {
+  AppMastheadHeading,
+  AppMastheadLead,
+  AppMastheadWrapper,
+  AppPlainMasthead,
+} from "app/core/components"
+import { GovukBackLink, GovukHeading, GovukMainWrapper } from "app/core/components/Govuk"
+import { MojSubNavigation, MojSubNavigationItem } from "app/core/components/Moj"
 
 /*
  * This file is just for a pleasant getting started page for your new app.

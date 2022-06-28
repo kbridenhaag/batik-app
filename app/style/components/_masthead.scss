@@ -3,7 +3,7 @@
 }
 
 .app-masthead--plain .app-masthead__wrapper {
-  @include govuk-responsive-padding(9, "top");
+  @include govuk-responsive-padding(2, "top");
   @include govuk-responsive-padding(9, "bottom");
 
   @include govuk-media-query($from: "desktop") {
@@ -11,13 +11,21 @@
   }
 }
 
-.app-masthead--plain .govuk-heading-xl {
-  margin-bottom: govuk-spacing(1);
+.app-masthead--plain .app-masthead__wrapper > .govuk-back-link {
+  @include govuk-responsive-margin(8, "bottom");
 }
 
-.app-masthead__lead {
-  margin-top: govuk-spacing(4);
+.app-masthead--plain .govuk-heading-xl {
   margin-bottom: govuk-spacing(1);
+
+  &:first-child {
+    @include govuk-responsive-margin(9, "top");
+  }
+}
+
+.app-masthead--plain .govuk-body-l {
+  margin-top: govuk-spacing(3);
+  @include govuk-responsive-margin(6, "bottom");
 }
 
 .app-masthead--plain .moj-sub-navigation {
@@ -26,4 +34,64 @@
 
 .app-masthead--plain .moj-sub-navigation__list {
   box-shadow: none;
+}
+
+.app-masthead--plain .moj-sub-navigation__item {
+  margin-right: 0;
+
+  &:not(:last-child) {
+    margin-right: govuk-spacing(1);
+  }
+
+  @include govuk-media-query($from: tablet) {
+    background-color: mix(govuk-colour("white"), govuk-colour("off-white"), 60%);
+
+    &:hover {
+      background-color: mix(govuk-colour("white"), govuk-colour("off-white"), 80%);
+    }
+  }
+}
+
+.app-masthead--plain .moj-sub-navigation__link {
+  padding-left: govuk-spacing(4);
+  padding-right: govuk-spacing(4);
+
+  &:hover {
+    color: $govuk-link-colour;
+  }
+}
+
+.app-masthead--plain .moj-sub-navigation__item:not(.moj-sub-navigation__item--current) {
+  @include govuk-media-query($from: tablet) {
+    box-shadow: inset 0px govuk-spacing(-1) 0px 0px govuk-colour("off-white");
+  }
+}
+
+.app-masthead--plain .moj-sub-navigation__item--current {
+  @include govuk-media-query($from: tablet) {
+    background-color: $govuk-body-background-colour;
+
+    &:hover {
+      background-color: $govuk-body-background-colour;
+    }
+  }
+}
+
+.app-masthead--plain .moj-sub-navigation__link:not(.moj-sub-navigation__link[aria-current="page"]) {
+  @include govuk-media-query($from: tablet) {
+    @include govuk-link-common;
+    @include govuk-link-style-default;
+    @include govuk-link-style-no-visited-state;
+  }
+}
+
+.app-masthead--plain .moj-sub-navigation__link[aria-current="page"] {
+  &:hover {
+    color: $govuk-text-colour;
+  }
+  &:before {
+    @include govuk-media-query($from: tablet) {
+      display: none;
+    }
+  }
 }
