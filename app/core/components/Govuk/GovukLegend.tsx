@@ -3,7 +3,7 @@ import { DetailedHTMLProps, HTMLAttributes } from "react"
 
 export interface GovukLegendProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLLegendElement>, HTMLLegendElement> {
-  size: "s" | "m" | "l" | "xl"
+  size?: "s" | "m" | "l" | "xl"
   isHeading?: boolean
 }
 
