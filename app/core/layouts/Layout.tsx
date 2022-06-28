@@ -1,17 +1,32 @@
 import { Head, BlitzLayout } from "blitz"
+import classNames from "classnames"
+import { AppHeader, AppFooter } from "../components"
 
-const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
-  title,
-  children,
-}) => {
+const Layout: BlitzLayout<{
+  title?: string
+  children?: React.ReactNode
+  beforeMain?: () => JSX.Element
+  includeMainWrapper?: boolean
+}> = ({ title, includeMainWrapper = true, beforeMain, children }) => {
+  const mainClasses = classNames({
+    "govuk-main-wrapper app-main-content govuk-width-container": includeMainWrapper,
+  })
   return (
     <>
       <Head>
-        <title>{title || "batik-app"}</title>
+        <title>{title || "batik-dashboard"}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {children}
+      <AppHeader />
+
+      {beforeMain && beforeMain()}
+
+      <main id="main-content" className={mainClasses}>
+        {children}
+      </main>
+
+      <AppFooter />
     </>
   )
 }

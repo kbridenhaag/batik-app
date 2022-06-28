@@ -6,8 +6,10 @@ import {
   AuthorizationError,
   ErrorFallbackProps,
   useQueryErrorResetBoundary,
+  Script,
 } from "blitz"
 import LoginForm from "app/auth/components/LoginForm"
+import "../style/index.scss"
 
 export default function App({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
@@ -17,6 +19,9 @@ export default function App({ Component, pageProps }: AppProps) {
       FallbackComponent={RootErrorFallback}
       onReset={useQueryErrorResetBoundary().reset}
     >
+      <Script id="govuk-enable-js">
+        {`document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');`}
+      </Script>
       {getLayout(<Component {...pageProps} />)}
     </ErrorBoundary>
   )

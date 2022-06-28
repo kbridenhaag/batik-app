@@ -1,0 +1,344 @@
+@include govuk-exports("app/component/header") {
+  $app-header-background: govuk-colour("white");
+  $app-header-border-color: $govuk-brand-colour;
+  $app-header-border-width: govuk-spacing(2);
+  $app-header-text: $govuk-brand-colour;
+  $app-header-link-active: #1d8feb;
+  $app-header-nav-item-border-color: $govuk-brand-colour;
+  $app-header-link-underline-thickness: 3px;
+
+  .app-header {
+    @include govuk-font($size: 16);
+
+    border-bottom: $app-header-border-width solid $app-header-border-color;
+    color: $app-header-text;
+    background: $app-header-background;
+  }
+
+  .app-header__container--full-width {
+    padding: 0 govuk-spacing(3);
+    border-color: $app-header-border-color;
+
+    .app-header__menu-button {
+      right: govuk-spacing(3);
+    }
+  }
+
+  .app-header__container {
+    @include govuk-clearfix;
+    position: relative;
+    padding-top: govuk-spacing(3);
+    padding-bottom: govuk-spacing(3);
+    justify-content: space-between;
+  }
+
+  .app-header__logotype {
+    display: inline-block;
+
+    // Add a gap after the logo in case it's followed by a product name. This
+    // gets removed later if the logotype is a :last-child.
+    margin-right: govuk-spacing(1);
+
+    // Prevent readability backplate from obscuring underline in Windows High
+    // Contrast Mode
+    @media (forced-colors: active) {
+      forced-color-adjust: none;
+      color: linktext;
+    }
+
+    // Remove the gap after the logo if there's no product name to keep hover
+    // and focus states neat
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .app-header__logotype-crown {
+    position: relative;
+    top: -1px;
+    margin-right: 1px;
+    fill: currentColor;
+    vertical-align: top;
+  }
+
+  .app-header__logotype-crown-fallback-image {
+    width: 36px;
+    height: 32px;
+    border: 0;
+    vertical-align: bottom;
+  }
+
+  .app-header__product-name {
+    @include govuk-font($size: 24, $line-height: 1);
+    display: inline-table;
+  }
+
+  .app-header__link {
+    // Avoid using the `govuk-link-common` mixin because the links in the header
+    // get a special treatment, because:
+    //
+    // - underlines are only visible on hover
+    // - all links get a 3px underline regardless of text size, as there are
+    //   multiple grouped elements close to one another and having slightly
+    //   different underline widths looks unbalanced
+    @include govuk-typography-common;
+
+    text-decoration: none;
+
+    color: $app-header-text;
+
+    &:hover {
+      text-decoration: underline;
+      text-decoration-thickness: $app-header-link-underline-thickness;
+
+      @if ($govuk-link-underline-offset) {
+        text-underline-offset: $govuk-link-underline-offset;
+      }
+    }
+
+    &:focus {
+      @include govuk-focused-text;
+    }
+  }
+
+  .app-header__link--homepage {
+    // Font size needs to be set on the link so that the box sizing is correct
+    // in Firefox
+    @include govuk-font($size: false, $weight: bold);
+
+    display: inline-block;
+    margin-right: govuk-spacing(2);
+    width: 120px;
+    font-size: 30px; // We don't have a mixin that produces 30px font size
+    line-height: 1;
+
+    @include govuk-media-query($from: "desktop") {
+      width: 160px;
+    }
+
+    &:link,
+    &:visited {
+      text-decoration: none;
+    }
+
+    &:hover,
+    &:active {
+      // Negate the added border
+      text-decoration: none;
+    }
+
+    // Remove any borders that show when focused and hovered.
+    &:focus {
+      margin-bottom: 0;
+      border-bottom: 0;
+    }
+  }
+
+  .app-header__link--service-name {
+    display: inline-block;
+    margin-bottom: govuk-spacing(2);
+    @include govuk-font($size: 24, $weight: bold);
+  }
+
+  .app-header__logo,
+  .app-header__content {
+    box-sizing: border-box;
+  }
+
+  .app-header__content {
+    @include govuk-media-query($from: desktop) {
+      width: 66.66%;
+      padding-left: 15px;
+      float: left;
+    }
+  }
+
+  .app-header__logo {
+    padding-right: govuk-spacing(8);
+
+    @include govuk-media-query($from: desktop) {
+      padding-right: $govuk-gutter-half;
+      vertical-align: top;
+      width: 33.33%;
+      padding-right: 15px;
+      float: left;
+    }
+  }
+
+  .app-header__menu-button {
+    @include govuk-font($size: 16);
+    display: none;
+    position: absolute;
+    top: govuk-spacing(6);
+    right: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: $app-header-text;
+    background: none;
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: solid underline $app-header-link-underline-thickness;
+
+      @if ($govuk-link-underline-offset) {
+        text-underline-offset: $govuk-link-underline-offset;
+      }
+    }
+
+    &:focus {
+      @include govuk-focused-text;
+    }
+
+    &:after {
+      @include govuk-shape-arrow($direction: down, $base: 10px, $display: inline-block);
+      content: "";
+      margin-left: govuk-spacing(1);
+    }
+
+    @include govuk-media-query($from: tablet) {
+      top: govuk-spacing(3);
+    }
+  }
+
+  .app-header__menu-button--open {
+    &:after {
+      @include govuk-shape-arrow($direction: up, $base: 10px, $display: inline-block);
+    }
+  }
+
+  .app-header__navigation {
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .app-header__navigation-list {
+    // Reset user-agent default list styles
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .js-enabled {
+    .app-header__menu-button {
+      display: block;
+      @include govuk-media-query($from: desktop) {
+        display: none;
+      }
+    }
+
+    .app-header__navigation-list {
+      display: none;
+      @include govuk-media-query($from: desktop) {
+        display: block;
+      }
+    }
+
+    .app-header__navigation-list--open {
+      display: block;
+    }
+  }
+
+  .app-header__navigation--end {
+    @include govuk-media-query($from: desktop) {
+      margin: 0;
+      padding: govuk-spacing(1) 0;
+      text-align: right;
+    }
+  }
+
+  .app-header__navigation--no-service-name {
+    @include govuk-media-query($from: desktop) {
+      padding-top: govuk-spacing(7);
+    }
+  }
+
+  .app-header__navigation-item {
+    padding: govuk-spacing(2) 0;
+    border-bottom: 1px solid $app-header-nav-item-border-color;
+
+    @include govuk-media-query($from: desktop) {
+      display: inline-block;
+      margin-right: govuk-spacing(6);
+      padding: 0;
+      border: 0;
+    }
+
+    a {
+      @include govuk-font($size: 16, $weight: bold);
+      white-space: nowrap;
+
+      @include govuk-media-query($from: desktop) {
+        @include govuk-font($size: 19, $weight: bold);
+      }
+    }
+  }
+
+  .app-header__navigation-item--active {
+    a {
+      &:link,
+      &:hover,
+      &:visited {
+        color: $app-header-link-active;
+      }
+
+      // When focussed, the text colour needs to be darker to ensure that colour
+      // contrast is still acceptable
+      &:focus {
+        color: $govuk-focus-text-colour;
+      }
+    }
+  }
+
+  .app-header__navigation-item:last-child {
+    margin-right: 0;
+  }
+
+  @include govuk-media-query($media-type: print) {
+    .app-header {
+      border-bottom-width: 0;
+      color: govuk-colour("black");
+      background: transparent;
+    }
+
+    // Hide the inverted crown when printing in browsers that don't support SVG.
+    .app-header__logotype-crown-fallback-image {
+      display: none;
+    }
+
+    .app-header__link {
+      &:link,
+      &:visited {
+        color: govuk-colour("black");
+      }
+
+      // Do not append link href to GOV.UK link when printing (e.g. '(/)')
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  @if $govuk-use-legacy-font {
+    // Begin adjustments for font baseline offset
+    // These should be removed when the font is updated with the correct baseline
+    .app-header__logotype-crown,
+    .app-header__logotype-crown-fallback-image {
+      position: relative;
+      top: -4px;
+      vertical-align: middle;
+    }
+
+    .app-header {
+      $offset: 3px;
+      padding-top: $offset;
+    }
+
+    .app-header__link--homepage {
+      line-height: 30px;
+    }
+    // End adjustments
+  }
+}

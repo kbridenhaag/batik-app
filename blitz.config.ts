@@ -1,6 +1,11 @@
+import path from "path"
 import { BlitzConfig, sessionMiddleware, simpleRolesIsAuthorized } from "blitz"
 
 const config: BlitzConfig = {
+  sassOptions: {
+    includePaths: [path.join(__dirname, "node_modules")],
+    quietDeps: true,
+  },
   middleware: [
     sessionMiddleware({
       cookiePrefix: "batik-app",

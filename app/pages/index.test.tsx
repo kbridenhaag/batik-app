@@ -1,6 +1,3 @@
-import { render } from "test/utils"
-
-import Home from "./index"
 import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 
 jest.mock("app/core/hooks/useCurrentUser")
@@ -18,8 +15,4 @@ test.skip("renders blitz documentation link", () => {
     email: "user@email.com",
     role: "user",
   })
-
-  const { getByText } = render(<Home />)
-  const linkElement = getByText(/Documentation/i)
-  expect(linkElement).toBeInTheDocument()
 })

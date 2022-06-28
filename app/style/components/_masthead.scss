@@ -1,0 +1,29 @@
+.app-masthead--plain {
+  background-color: govuk-colour("off-white");
+}
+
+.app-masthead--plain .app-masthead__wrapper {
+  @include govuk-responsive-padding(9, "top");
+  @include govuk-responsive-padding(9, "bottom");
+
+  @include govuk-media-query($from: "desktop") {
+    max-width: 66.666%;
+  }
+}
+
+.app-masthead--plain .govuk-heading-xl {
+  margin-bottom: govuk-spacing(1);
+}
+
+.app-masthead__lead {
+  margin-top: govuk-spacing(4);
+  margin-bottom: govuk-spacing(1);
+}
+
+.app-masthead--plain .moj-sub-navigation {
+  margin-bottom: 0;
+}
+
+.app-masthead--plain .moj-sub-navigation__list {
+  box-shadow: none;
+}

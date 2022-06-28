@@ -9,9 +9,9 @@ class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="en">
+      <Html lang="en" className="govuk-template">
         <DocumentHead />
-        <body>
+        <body className="govuk-template__body">
           <Main />
           <BlitzScript />
         </body>
