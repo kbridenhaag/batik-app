@@ -1,11 +1,11 @@
 import classNames from "classnames"
 import { DetailedHTMLProps, HTMLAttributes } from "react"
 
-export interface AppMastheadWrapperProps
+export interface AppMastheadBodyProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLHeadingElement>, HTMLHeadingElement> {}
 
-export function AppMastheadWrapper({ children, className, ...props }: AppMastheadWrapperProps) {
-  const classes = classNames("app-masthead__wrapper govuk-width-container", className)
+export function AppMastheadBody({ children, className, ...props }: AppMastheadBodyProps) {
+  const classes = classNames("app-masthead__body", className)
 
   return (
     <div className={classes} {...props}>

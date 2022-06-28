@@ -1,16 +1,10 @@
 import { Head, BlitzLayout } from "blitz"
-import classNames from "classnames"
 import { AppHeader, AppFooter } from "../components"
 
 const Layout: BlitzLayout<{
   title?: string
   children?: React.ReactNode
-  beforeMain?: () => JSX.Element
-  includeMainWrapper?: boolean
-}> = ({ title, includeMainWrapper = true, beforeMain, children }) => {
-  const mainClasses = classNames({
-    "": includeMainWrapper,
-  })
+}> = ({ title, children }) => {
   return (
     <>
       <Head>
@@ -20,11 +14,7 @@ const Layout: BlitzLayout<{
 
       <AppHeader />
 
-      {beforeMain && beforeMain()}
-
-      <main id="main-content" className={mainClasses}>
-        {children}
-      </main>
+      {children}
 
       <AppFooter />
     </>
