@@ -6,7 +6,7 @@ export interface GovukFormGroupProps
   isError?: boolean
 }
 
-export function GovukFormGroup({ children, isError, className, ...props }) {
+export function GovukFormGroup({ children, isError, className, ...props }: GovukFormGroupProps) {
   const classes = classNames("govuk-form-group", { "govuk-form-group--error": isError }, className)
 
   return (
