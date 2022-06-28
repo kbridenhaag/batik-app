@@ -119,6 +119,7 @@
     &:link,
     &:visited {
       text-decoration: none;
+      color: $app-header-text;
     }
 
     &:hover,
