@@ -1,4 +1,4 @@
-import { renderHook, act } from "@testing-library/react-hooks"
+import { renderHook, act, cleanup } from "@testing-library/react-hooks"
 import { ChangeEvent } from "react"
 import { useFilter } from "./useFilter"
 
@@ -9,6 +9,10 @@ describe("useFilter", () => {
     size: ["large"],
     name: "Pandu",
   }
+
+  afterEach(() => {
+    cleanup()
+  })
   it("should expose an object with methods", () => {
     const { result } = renderHook(() => useFilter(initialFilters))
     expect(result.current).toHaveProperty("activeFilters")
@@ -25,7 +29,9 @@ describe("useFilter", () => {
   it("should clear the filters", () => {
     const { result } = renderHook(() => useFilter(initialFilters))
 
-    result.current.clearFilters()
+    act(() => {
+      result.current.clearFilters()
+    })
 
     expect(result.current.activeFilters).toMatchObject({
       colour: [],
@@ -38,9 +44,11 @@ describe("useFilter", () => {
   it("should add an array filter", () => {
     const { result } = renderHook(() => useFilter(initialFilters))
 
-    const { onChange } = result.current.setProps("colour", "red")
+    act(() => {
+      const { onChange } = result.current.setProps("colour", "red")
 
-    onChange({ target: { name: "colour", value: "pink" } } as ChangeEvent<HTMLInputElement>)
+      onChange({ target: { name: "colour", value: "pink" } } as ChangeEvent<HTMLInputElement>)
+    })
 
     expect(result.current.activeFilters.colour).toContain("pink")
   })
@@ -50,9 +58,11 @@ describe("useFilter", () => {
 
     expect(result.current.activeFilters.colour).toContain("orange")
 
-    const { onChange } = result.current.setProps("colour", "orange")
+    act(() => {
+      const { onChange } = result.current.setProps("colour", "orange")
 
-    onChange({ target: { name: "colour", value: "orange" } } as ChangeEvent<HTMLInputElement>)
+      onChange({ target: { name: "colour", value: "orange" } } as ChangeEvent<HTMLInputElement>)
+    })
 
     expect(result.current.activeFilters.colour).not.toContain("orange")
   })
@@ -62,9 +72,11 @@ describe("useFilter", () => {
 
     expect(result.current.activeFilters.name).toEqual("Pandu")
 
-    const { onChange } = result.current.setProps("name")
+    act(() => {
+      const { onChange } = result.current.setProps("name")
 
-    onChange({ target: { name: "name", value: "Paula" } } as ChangeEvent<HTMLInputElement>)
+      onChange({ target: { name: "name", value: "Paula" } } as ChangeEvent<HTMLInputElement>)
+    })
 
     expect(result.current.activeFilters.name).toEqual("Paula")
   })
@@ -72,20 +84,24 @@ describe("useFilter", () => {
   it("should register props for string values", () => {
     const { result } = renderHook(() => useFilter(initialFilters))
 
-    const props = result.current.setProps("name")
+    act(() => {
+      const props = result.current.setProps("name")
 
-    expect(props.id).toEqual("name")
-    expect(props.name).toEqual("name")
-    expect(props.value).toEqual("Pandu")
+      expect(props.id).toEqual("name")
+      expect(props.name).toEqual("name")
+      expect(props.value).toEqual("Pandu")
+    })
   })
   it("should register props for array values", () => {
     const { result } = renderHook(() => useFilter(initialFilters))
 
-    const props = result.current.setProps("colour", "orange")
+    act(() => {
+      const props = result.current.setProps("colour", "orange")
 
-    expect(props.id).toEqual("colour-orange")
-    expect(props.name).toEqual("colour")
-    expect(props.value).toEqual("orange")
+      expect(props.id).toEqual("colour-orange")
+      expect(props.name).toEqual("colour")
+      expect(props.value).toEqual("orange")
+    })
   })
 
   it("should return whether or not an item should be checked", () => {

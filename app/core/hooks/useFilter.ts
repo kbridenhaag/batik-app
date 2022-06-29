@@ -64,7 +64,7 @@ export const useFilter = <T>(initial: ActiveFilters<T>) => {
     (key: keyof T, value?: string) => {
       return {
         onChange,
-        value: value,
+        value: value ? value : activeFilters[key],
         name: key,
         id: value ? `${String(key)}-${value}` : key,
         ...(Array.isArray(activeFilters[key]) && !!value
