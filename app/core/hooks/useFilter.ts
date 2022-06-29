@@ -45,6 +45,27 @@ export const useFilter = <T>(initial: ActiveFilters<T>) => {
     })
   }, [initial])
 
+  const removeFilter = (key: keyof T, value?: string) => {
+    return setActiveFilters((prev) => {
+      const current = prev[key]
+      const isArray = Array.isArray(current)
+
+      if (isArray) {
+        return {
+          ...prev,
+          [key]: current.filter((v) => v !== value),
+        }
+      }
+
+      return {
+        ...prev,
+        [key]: "",
+      }
+
+      return prev
+    })
+  }
+
   const onChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target
@@ -75,5 +96,5 @@ export const useFilter = <T>(initial: ActiveFilters<T>) => {
     [activeFilters, onChange]
   )
 
-  return { clearFilters, setProps, activeFilters } as const
+  return { clearFilters, setProps, activeFilters, removeFilter } as const
 }

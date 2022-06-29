@@ -117,4 +117,28 @@ describe("useFilter", () => {
 
     expect(result.current.setProps("colour", "orange").checked).toBeFalsy()
   })
+
+  it("should remove a single array filter", () => {
+    const { result } = renderHook(() => useFilter(initialFilters))
+
+    expect(result.current.activeFilters.colour).toContain("orange")
+
+    act(() => {
+      result.current.removeFilter("colour", "orange")
+    })
+
+    expect(result.current.activeFilters.colour).not.toContain("orange")
+  })
+
+  it("should remove a string filter", () => {
+    const { result } = renderHook(() => useFilter(initialFilters))
+
+    expect(result.current.activeFilters.name).toEqual("Pandu")
+
+    act(() => {
+      result.current.removeFilter("name")
+    })
+
+    expect(result.current.activeFilters.name).toEqual("")
+  })
 })
