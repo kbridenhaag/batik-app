@@ -12,9 +12,13 @@ export function AppLabeledRadiosItem({
   labelSize,
   ...props
 }: AppLabeledRadiosItemProps) {
+  const computedId = props.id || props.name + "-" + props.value
+
   return (
     <GovukRadiosItem {...props}>
-      <GovukRadiosLabel size={labelSize}>{label}</GovukRadiosLabel>
+      <GovukRadiosLabel htmlFor={computedId} size={labelSize}>
+        {label}
+      </GovukRadiosLabel>
       {hint && <GovukRadiosHint>{hint}</GovukRadiosHint>}
     </GovukRadiosItem>
   )
