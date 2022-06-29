@@ -96,5 +96,17 @@ export const useFilter = <T>(initial: ActiveFilters<T>) => {
     [activeFilters, onChange]
   )
 
-  return { clearFilters, setProps, activeFilters, removeFilter } as const
+  const count = Object.keys(activeFilters).reduce((acc, curr) => {
+    if (Array.isArray(activeFilters[curr])) {
+      return acc + activeFilters[curr].length
+    }
+
+    if (typeof activeFilters[curr] === "string" && activeFilters[curr].length > 0) {
+      return acc + 1
+    }
+
+    return acc
+  }, 0)
+
+  return { clearFilters, setProps, activeFilters, removeFilter, count } as const
 }

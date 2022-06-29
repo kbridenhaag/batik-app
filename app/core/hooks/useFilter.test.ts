@@ -141,4 +141,10 @@ describe("useFilter", () => {
 
     expect(result.current.activeFilters.name).toEqual("")
   })
+
+  it("counts the amount of active filters", () => {
+    const { result } = renderHook(() => useFilter(initialFilters))
+
+    expect(result.current.count).toEqual(5)
+  })
 })
