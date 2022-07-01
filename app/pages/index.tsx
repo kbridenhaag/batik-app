@@ -5,6 +5,10 @@ import { useCurrentUser } from "app/core/hooks/useCurrentUser"
 import logout from "app/auth/mutations/logout"
 import logo from "public/logo.png"
 import {
+  AppFilter,
+  AppFilterBox,
+  AppFilterBoxHeader,
+  AppFilterContent,
   AppMasthead,
   AppMastheadBody,
   AppMastheadHeading,
@@ -12,7 +16,13 @@ import {
   AppMastheadWrapper,
   AppPlainMasthead,
 } from "app/core/components"
-import { GovukBackLink, GovukBody, GovukHeading, GovukMainWrapper } from "app/core/components/Govuk"
+import {
+  GovukBackLink,
+  GovukBody,
+  GovukHeading,
+  GovukMainWrapper,
+  GovukWidthContainer,
+} from "app/core/components/Govuk"
 import { MojSubNavigation, MojSubNavigationItem } from "app/core/components/Moj"
 
 /*

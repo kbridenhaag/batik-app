@@ -1,6 +1,7 @@
 import {
   GovukCheckboxesItem,
   GovukCheckboxesItemProps,
+  GovukCheckboxesLabel,
   GovukRadiosHint,
   GovukRadiosLabel,
 } from "../Govuk"
@@ -17,9 +18,13 @@ export function AppLabeledCheckboxesItem({
   labelSize,
   ...props
 }: AppLabeledCheckboxesItemProps) {
+  const computedId = props.id || props.name + "-" + props.value
+
   return (
-    <GovukCheckboxesItem {...props}>
-      <GovukRadiosLabel size={labelSize}>{label}</GovukRadiosLabel>
+    <GovukCheckboxesItem id={computedId} {...props}>
+      <GovukCheckboxesLabel htmlFor={computedId} size={labelSize}>
+        {label}
+      </GovukCheckboxesLabel>
       {hint && <GovukRadiosHint>{hint}</GovukRadiosHint>}
     </GovukCheckboxesItem>
   )

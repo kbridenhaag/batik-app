@@ -14,7 +14,11 @@ export function GovukLegend({
   isHeading = false,
   ...props
 }: GovukLegendProps) {
-  const classes = classNames("govuk-legend", { [`govuk-legend--${size}`]: !!size }, className)
+  const classes = classNames(
+    "govuk-fieldset__legend",
+    { [`govuk-fieldset__legend--${size}`]: !!size },
+    className
+  )
   return isHeading ? (
     <legend className={classes} {...props}>
       <h1 className="govuk-fieldset__heading">{children}</h1>
